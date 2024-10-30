@@ -1,0 +1,42 @@
+# Project: Minesweeper
+# Makefile created by Dev-C++ 5.11
+
+CPP      = g++.exe
+CC       = gcc.exe
+WINDRES  = windres.exe
+RES      = Minesweeper_private.res
+OBJ      = minesweeper.o Cell.o Field.o Window.o $(RES)
+LINKOBJ  = minesweeper.o Cell.o Field.o Window.o $(RES)
+LIBS     = -L"D:/Dev-Cpp/MinGW64/lib" -L"D:/Dev-Cpp/MinGW64/x86_64-w64-mingw32/lib" -static-libgcc -L"SDL2/x86_64-w64-mingw32/lib" -L"SDL2_image/x86_64-w64-mingw32/lib" -mwindows -lmingw32 -lSDL2main -lSDL2 -lSDL2_image
+INCS     = -I"D:/Dev-Cpp/MinGW64/include" -I"D:/Dev-Cpp/MinGW64/x86_64-w64-mingw32/include" -I"D:/Dev-Cpp/MinGW64/lib/gcc/x86_64-w64-mingw32/4.9.2/include" -I"SDL2/x86_64-w64-mingw32/include/SDL2" -I"SDL2_image/x86_64-w64-mingw32/include/SDL2"
+CXXINCS  = -I"D:/Dev-Cpp/MinGW64/include" -I"D:/Dev-Cpp/MinGW64/x86_64-w64-mingw32/include" -I"D:/Dev-Cpp/MinGW64/lib/gcc/x86_64-w64-mingw32/4.9.2/include" -I"D:/Dev-Cpp/MinGW64/lib/gcc/x86_64-w64-mingw32/4.9.2/include/c++" -I"SDL2/x86_64-w64-mingw32/include/SDL2" -I"SDL2_image/x86_64-w64-mingw32/include/SDL2"
+BIN      = Minesweeper.exe
+CXXFLAGS = $(CXXINCS) 
+CFLAGS   = $(INCS) 
+RM       = rm.exe -f
+
+.PHONY: all all-before all-after clean clean-custom
+
+all: all-before $(BIN) all-after
+
+clean: clean-custom
+	${RM} $(OBJ) $(BIN)
+
+$(BIN): $(OBJ)
+	$(CPP) $(LINKOBJ) -o $(BIN) $(LIBS)
+
+minesweeper.o: minesweeper.cpp
+	$(CPP) -c minesweeper.cpp -o minesweeper.o $(CXXFLAGS)
+
+Cell.o: Cell.cpp
+	$(CPP) -c Cell.cpp -o Cell.o $(CXXFLAGS)
+
+Field.o: Field.cpp
+	$(CPP) -c Field.cpp -o Field.o $(CXXFLAGS)
+
+Window.o: Window.cpp
+	$(CPP) -c Window.cpp -o Window.o $(CXXFLAGS)
+
+Minesweeper_private.res: Minesweeper_private.rc 
+	$(WINDRES) -i Minesweeper_private.rc --input-format=rc -o Minesweeper_private.res -O coff 
+
